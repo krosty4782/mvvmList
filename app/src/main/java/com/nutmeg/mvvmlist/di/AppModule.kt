@@ -4,12 +4,10 @@ import com.nutmeg.core.data.repositories.UsersRepository
 import com.nutmeg.core.data.services.PostService
 import com.nutmeg.core.data.services.UsersService
 import com.nutmeg.core.domain.use_cases.GetPostsWithNameUseCase
-import com.nutmeg.core.domain.use_cases.GetUserUseCase
 import com.nutmeg.mvvmlist.posts.PostUseCases
 import com.nutmeg.mvvmlist.posts.PostsModelConverter
 import com.nutmeg.mvvmlist.repositories.PostDataSourceImp
 import com.nutmeg.mvvmlist.repositories.UsersDataSourceImp
-import com.nutmeg.mvvmlist.users.UserUseCases
 import com.nutmeg.mvvmlist.util.Constant
 import dagger.Module
 import dagger.Provides

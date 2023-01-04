@@ -43,6 +43,7 @@ class PostsActivity : BaseActivity() {
                 when (it) {
                     is NavigationDestination.User -> {
                         val intent = Intent(this, UserActivity::class.java)
+                        intent.putExtra("userId", it.userId)
                         startActivity(intent)
                     }
                 }

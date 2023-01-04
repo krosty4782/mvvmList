@@ -18,7 +18,7 @@ class PostsViewModel @Inject constructor(
 
     private val _navigation = MutableLiveData<NavigationDestination>()
     val navigation: LiveData<NavigationDestination> = _navigation
-    private val _posts: MutableLiveData<List<PostsModel>> = MutableLiveData()
+    private val _posts = MutableLiveData<List<PostsModel>>()
     val posts: LiveData<List<PostsModel>> = _posts
 
     fun onViewLoaded() {
@@ -29,6 +29,7 @@ class PostsViewModel @Inject constructor(
                 } else {
                     //This logger could be wrapped and injected for testability
                     Log.e("Error", "Couldn't load posts")
+                    //You could here handle error based on exceptionOrNull, and show whatever is needed in the UI
                 }
             }
         }

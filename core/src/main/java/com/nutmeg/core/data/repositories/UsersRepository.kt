@@ -8,4 +8,8 @@ class UsersRepository(private val usersDataSource: UsersDataSource) : UsersRepos
     override suspend fun getUsers(): List<User> {
         return usersDataSource.getUsers()
     }
+
+    override suspend fun getUser(userId: Int): User {
+        return usersDataSource.getUser(userId)
+    }
 }

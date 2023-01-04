@@ -8,4 +8,8 @@ class UsersDataSourceImp(private val usersService: UsersService) : UsersDataSour
     override suspend fun getUsers(): List<User> {
         return usersService.getUsers()
     }
+
+    override suspend fun getUser(userId: Int): User {
+        return usersService.getUser(userId)
+    }
 }
