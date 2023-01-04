@@ -1,6 +1,6 @@
 package com.nutmeg.mvvmlist.posts
 
-class PostsModel(
+data class PostsModel(
     val title: String,
     val body: String,
     val username: String,

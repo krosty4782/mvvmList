@@ -5,11 +5,9 @@ import com.nutmeg.core.domain.models.Post
 import com.nutmeg.core.domain.models.PostWithUser
 import com.nutmeg.core.domain.models.User
 import com.nutmeg.core.domain.use_cases.GetPostsWithNameUseCase
-import com.nutmeg.mvvmlist.base.UseCases
 import com.nutmeg.mvvmlist.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -32,7 +30,7 @@ class PostsViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var useCasesMock: UseCases
+    private lateinit var useCasesMock: PostUseCases
 
     @Mock
     private lateinit var postsModelConverterMock: PostsModelConverter
@@ -55,7 +53,7 @@ class PostsViewModelTest {
             whenever(useCasesMock.getAllPostsWithNameUseCase).thenReturn(
                 getAllPostsWithNameUseCaseMock
             )
-            val postsModelMock = listOf(PostsModel("title", "body", "username"))
+            val postsModelMock = listOf(PostsModel("title", "body", "username", 12))
             whenever(postsModelConverterMock.convert(any())).thenReturn(postsModelMock)
 
             whenever(getAllPostsWithNameUseCaseMock.buildUseCase(null)).thenReturn(resultMock)

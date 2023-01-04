@@ -20,16 +20,16 @@ class PostsModelConverterTest {
             val posts = listOf(
                 PostWithUser(
                     Post(12, 1, "title1", "body1"),
-                    User(1, "name1", "username1", "email1")
+                    User(12, "name1", "username1", "email1")
                 ),
                 PostWithUser(
                     Post(13, 2, "title2", "body2"),
-                    User(2, "username2", "username2", "email2")
+                    User(13, "username2", "username2", "email2")
                 )
             )
             val expectedResult = listOf(
-                PostsModel(title = "title1", body = "body1", username = "username1"),
-                PostsModel(title = "title2", body = "body2", username = "username2")
+                PostsModel(title = "title1", body = "body1", username = "username1", 12),
+                PostsModel(title = "title2", body = "body2", username = "username2", 13)
             )
 
             //when
