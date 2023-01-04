@@ -5,6 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.nutmeg.mvvmlist.MVVMApplication
 
-open class BaseViewModel(protected val useCases: UseCases) : ViewModel() {
+open class BaseViewModel() : ViewModel() {
 
 }

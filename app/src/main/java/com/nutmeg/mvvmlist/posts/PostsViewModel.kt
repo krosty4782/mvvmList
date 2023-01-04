@@ -5,17 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nutmeg.mvvmlist.base.BaseViewModel
-import com.nutmeg.mvvmlist.base.UseCases
+import com.nutmeg.mvvmlist.base.NavigationDestination
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class PostsViewModel @Inject constructor(
-    useCases: UseCases,
+    private val useCases: PostUseCases,
     private val postsModelConverter: PostsModelConverter
-) : BaseViewModel(useCases) {
+) : BaseViewModel() {
 
+    private val _navigation = MutableLiveData<NavigationDestination>()
+    val navigation: LiveData<NavigationDestination> = _navigation
     private val _posts: MutableLiveData<List<PostsModel>> = MutableLiveData()
     val posts: LiveData<List<PostsModel>> = _posts
 
@@ -33,6 +35,10 @@ class PostsViewModel @Inject constructor(
     }
 
     fun onUsernameClicked(userId: Int) {
-        Log.e("clicked", userId.toString())
+        _navigation.postValue(NavigationDestination.User(userId))
+    }
+
+    fun doneNavigating() {
+        _navigation.postValue(null)
     }
 }
