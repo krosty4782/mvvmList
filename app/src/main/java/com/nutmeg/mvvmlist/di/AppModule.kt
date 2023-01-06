@@ -1,11 +1,21 @@
 package com.nutmeg.mvvmlist.di
 
+import com.nutmeg.core.data.datasource.PostDataSource
+import com.nutmeg.core.data.datasource.UsersDataSource
+import com.nutmeg.core.data.repositories.FavouritesRepository
 import com.nutmeg.core.data.repositories.UsersRepository
+import com.nutmeg.core.data.services.FavouritesService
+import com.nutmeg.core.data.services.FavouritesServiceImp
 import com.nutmeg.core.data.services.PostService
 import com.nutmeg.core.data.services.UsersService
+import com.nutmeg.core.domain.use_cases.DeleteFavouriteUseCase
 import com.nutmeg.core.domain.use_cases.GetPostsWithNameUseCase
+import com.nutmeg.core.domain.use_cases.IsFavouriteUseCase
+import com.nutmeg.core.domain.use_cases.StoreFavouriteUseCase
+import com.nutmeg.mvvmlist.posts.FavouritesUseCases
 import com.nutmeg.mvvmlist.posts.PostUseCases
 import com.nutmeg.mvvmlist.posts.PostsModelConverter
+import com.nutmeg.mvvmlist.repositories.FavouritesDataSourceImp
 import com.nutmeg.mvvmlist.repositories.PostDataSourceImp
 import com.nutmeg.mvvmlist.repositories.UsersDataSourceImp
 import com.nutmeg.mvvmlist.util.Constant
@@ -50,19 +60,24 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getUsersDataSource(usersService: UsersService) = UsersDataSourceImp(usersService)
+    fun getFavouritesService(): FavouritesService = FavouritesServiceImp()
 
     @Provides
     @Singleton
-    fun getPostDataSource(postService: PostService) = PostDataSourceImp(postService)
+    fun getUsersDataSource(usersService: UsersService): UsersDataSource =
+        UsersDataSourceImp(usersService)
 
     @Provides
     @Singleton
-    fun getUsersRepository(usersDataSource: UsersDataSourceImp) = UsersRepository(usersDataSource)
+    fun getPostDataSource(postService: PostService): PostDataSource = PostDataSourceImp(postService)
 
     @Provides
     @Singleton
-    fun getPostsRepository(dataSource: PostDataSourceImp) =
+    fun getUsersRepository(usersDataSource: UsersDataSource) = UsersRepository(usersDataSource)
+
+    @Provides
+    @Singleton
+    fun getPostsRepository(dataSource: PostDataSource) =
         com.nutmeg.core.data.repositories.PostsRepository(dataSource)
 
     @Provides
@@ -81,4 +96,38 @@ object AppModule {
     @Singleton
     fun getPostUseCases(getPostsWithNameUseCase: GetPostsWithNameUseCase) =
         PostUseCases(getPostsWithNameUseCase)
+
+    @Provides
+    @Singleton
+    fun getFavouritesDataSource(favouritesService: FavouritesService) =
+        FavouritesDataSourceImp(favouritesService)
+
+    @Provides
+    @Singleton
+    fun getFavouritesRepository(favouritesDataSource: FavouritesDataSourceImp) =
+        FavouritesRepository(favouritesDataSource)
+
+    @Provides
+    @Singleton
+    fun getIsFavouriteUseCase(favouritesRepository: FavouritesRepository) =
+        IsFavouriteUseCase(favouritesRepository)
+
+    @Provides
+    @Singleton
+    fun getStoreFavouriteUseCase(favouritesRepository: FavouritesRepository) =
+        StoreFavouriteUseCase(favouritesRepository)
+
+    @Provides
+    @Singleton
+    fun getDeleteFavouriteUseCase(favouritesRepository: FavouritesRepository) =
+        DeleteFavouriteUseCase(favouritesRepository)
+
+    @Provides
+    @Singleton
+    fun getFavouritesUseCases(
+        isFavouriteUseCase: IsFavouriteUseCase,
+        storeFavouriteUseCase: StoreFavouriteUseCase,
+        deleteFavouriteUseCase: DeleteFavouriteUseCase
+    ) =
+        FavouritesUseCases(isFavouriteUseCase, storeFavouriteUseCase, deleteFavouriteUseCase)
 }

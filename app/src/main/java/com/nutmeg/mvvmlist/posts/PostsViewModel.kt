@@ -13,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class PostsViewModel @Inject constructor(
     private val useCases: PostUseCases,
-    private val postsModelConverter: PostsModelConverter
+    private val postsModelConverter: PostsModelConverter,
+    private val favouritesUseCases: FavouritesUseCases
 ) : BaseViewModel() {
 
     private val _navigation = MutableLiveData<NavigationDestination>()

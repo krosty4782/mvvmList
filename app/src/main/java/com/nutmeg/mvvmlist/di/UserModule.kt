@@ -1,6 +1,5 @@
 package com.nutmeg.mvvmlist.di
 
-import com.nutmeg.core.data.datasource.UsersDataSource
 import com.nutmeg.core.data.repositories.UsersRepository
 import com.nutmeg.core.domain.use_cases.GetUserUseCase
 import com.nutmeg.mvvmlist.users.UserUseCases
