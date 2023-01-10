@@ -4,7 +4,7 @@ import com.nutmeg.core.domain.models.PostWithUser
 
 class PostsModelConverter {
 
-    fun convert(posts: List<PostWithUser>?): MutableList<PostsModel>? {
+    fun convert(posts: List<PostWithUser>?): List<PostsModel>? {
         val postsModel = posts?.map {
             PostsModel(
                 title = it.post.title,
