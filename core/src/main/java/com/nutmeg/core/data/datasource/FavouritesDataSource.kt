@@ -1,9 +1,9 @@
 package com.nutmeg.core.data.datasource
 
 interface FavouritesDataSource {
-    suspend fun isFavourite(postId: String): Boolean
+    suspend fun isFavourite(postId: Int): Boolean
 
-    suspend fun storeFavourite(postId: String)
+    suspend fun storeFavourite(postId: Int)
 
-    suspend fun deleteFavourite(postId: String)
+    suspend fun deleteFavourite(postId: Int)
 }

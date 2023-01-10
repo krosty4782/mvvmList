@@ -2,6 +2,7 @@ package com.nutmeg.mvvmlist.posts
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nutmeg.mvvmlist.R
@@ -25,9 +26,11 @@ class PostsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = PostsAdapter {
+        adapter = PostsAdapter({
             viewModel.onUsernameClicked(it)
-        }
+        }, {
+            viewModel.onFavouritesClicked(it)
+        })
         post_list_recycle_view.run {
             adapter = this@PostsActivity.adapter
             layoutManager = LinearLayoutManager(applicationContext)
@@ -35,7 +38,7 @@ class PostsActivity : BaseActivity() {
         viewModel.onViewLoaded()
 
         viewModel.posts.observe(this) {
-            adapter.submitList(it)
+            adapter.submitList(it) {adapter.notifyDataSetChanged()}
         }
 
         viewModel.navigation.observe(this) {

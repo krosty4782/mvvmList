@@ -19,12 +19,12 @@ class PostsViewModel @Inject constructor(
 
     private val _navigation = MutableLiveData<NavigationDestination>()
     val navigation: LiveData<NavigationDestination> = _navigation
-    private val _posts = MutableLiveData<List<PostsModel>>()
-    val posts: LiveData<List<PostsModel>> = _posts
+    private val _posts = MutableLiveData<MutableList<PostsModel>>()
+    val posts: LiveData<MutableList<PostsModel>> = _posts
 
     fun onViewLoaded() {
         viewModelScope.launch {
-            useCases.getAllPostsWithNameUseCase.buildUseCase(null).let {
+            useCases.getAllPostsWithNameAndFavUseCase.buildUseCase(null).let {
                 if (it.isSuccess) {
                     _posts.postValue(postsModelConverter.convert(it.getOrNull()))
                 } else {
@@ -38,6 +38,28 @@ class PostsViewModel @Inject constructor(
 
     fun onUsernameClicked(userId: Int) {
         _navigation.postValue(NavigationDestination.User(userId))
+    }
+
+    fun onFavouritesClicked(postsModel: PostsModel) {
+
+        with(postsModel.postId) {
+            val modifiedList = posts.value?.toMutableList()
+            val index = modifiedList?.indexOfFirst { it.postId == this }
+            val newPost: PostsModel
+            if (postsModel.isFavourite) {
+                viewModelScope.launch {
+                    favouritesUseCases.deleteFavouriteUseCase.deleteFavourite(this@with)
+                }
+                newPost = postsModel.copy(isFavourite = false)
+            } else {
+                viewModelScope.launch {
+                    favouritesUseCases.storeFavouriteUseCase.storeFavourite(this@with)
+                }
+                newPost = postsModel.copy(isFavourite = true)
+            }
+            index?.let { modifiedList.set(it, newPost) }
+            _posts.postValue(modifiedList)
+        }
     }
 
     fun doneNavigating() {

@@ -4,5 +4,7 @@ data class PostsModel(
     val title: String,
     val body: String,
     val username: String,
-    val userId: Int
+    val isFavourite: Boolean,
+    val userId: Int,
+    val postId: Int
 )

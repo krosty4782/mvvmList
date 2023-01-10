@@ -1,5 +1,6 @@
 package com.nutmeg.core.domain.use_cases
 
+import com.nutmeg.core.data.repositories.FavouritesRepository
 import com.nutmeg.core.domain.models.PostWithUser
 import com.nutmeg.core.domain.repositories.PostsRepository
 import com.nutmeg.core.domain.repositories.UsersRepository
@@ -7,9 +8,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 
-class GetPostsWithNameUseCase(
+class GetPostsWithNameAndFavsUseCase(
     private val postsRepository: PostsRepository,
-    private val usersRepository: UsersRepository
+    private val usersRepository: UsersRepository,
+    private val favouritesRepository: FavouritesRepository
 ) : BaseUseCase<List<PostWithUser>, Nothing?> {
 
     override suspend fun buildUseCase(params: Nothing?): Result<List<PostWithUser>> {
@@ -23,9 +25,11 @@ class GetPostsWithNameUseCase(
                 val posts = postsResponse.await()
                 val users = usersResponse.await()
 
+
                 val postsWithUsers = posts.mapNotNull { post ->
+                    val isFavourite = favouritesRepository.isFavourite(post.id)
                     val user = users.find { user -> user.id == post.userId }
-                    user?.let { PostWithUser(user = user, post = post) }
+                    user?.let { PostWithUser(user = user, post = post, isFavourite = isFavourite) }
                 }
 
                 return@withContext Result.success(postsWithUsers)

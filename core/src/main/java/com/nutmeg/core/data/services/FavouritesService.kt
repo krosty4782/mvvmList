@@ -2,9 +2,9 @@ package com.nutmeg.core.data.services
 
 interface FavouritesService {
 
-    fun isFavourite(postId: String): Boolean
+    fun isFavourite(postId: Int): Boolean
 
-    fun storeFavourite(postId:String)
+    fun storeFavourite(postId:Int)
 
-    fun deleteFavourite(postId:String)
+    fun deleteFavourite(postId:Int)
 }

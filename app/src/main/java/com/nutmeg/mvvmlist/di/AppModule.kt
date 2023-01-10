@@ -9,7 +9,7 @@ import com.nutmeg.core.data.services.FavouritesServiceImp
 import com.nutmeg.core.data.services.PostService
 import com.nutmeg.core.data.services.UsersService
 import com.nutmeg.core.domain.use_cases.DeleteFavouriteUseCase
-import com.nutmeg.core.domain.use_cases.GetPostsWithNameUseCase
+import com.nutmeg.core.domain.use_cases.GetPostsWithNameAndFavsUseCase
 import com.nutmeg.core.domain.use_cases.IsFavouriteUseCase
 import com.nutmeg.core.domain.use_cases.StoreFavouriteUseCase
 import com.nutmeg.mvvmlist.posts.FavouritesUseCases
@@ -87,14 +87,15 @@ object AppModule {
     @Provides
     @Singleton
     fun getPostsWithNameUseCase(
-        getPostsRepository: com.nutmeg.core.data.repositories.PostsRepository,
-        getUserRepository: UsersRepository
-    ) = GetPostsWithNameUseCase(getPostsRepository, getUserRepository)
+        postRepository: com.nutmeg.core.data.repositories.PostsRepository,
+        userRepository: UsersRepository,
+        favouritesRepository: FavouritesRepository
+    ) = GetPostsWithNameAndFavsUseCase(postRepository, userRepository, favouritesRepository)
 
 
     @Provides
     @Singleton
-    fun getPostUseCases(getPostsWithNameUseCase: GetPostsWithNameUseCase) =
+    fun getPostUseCases(getPostsWithNameUseCase: GetPostsWithNameAndFavsUseCase) =
         PostUseCases(getPostsWithNameUseCase)
 
     @Provides

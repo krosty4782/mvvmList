@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.nutmeg.core.domain.models.Post
 import com.nutmeg.core.domain.models.PostWithUser
 import com.nutmeg.core.domain.models.User
-import com.nutmeg.core.domain.use_cases.GetPostsWithNameUseCase
+import com.nutmeg.core.domain.use_cases.GetPostsWithNameAndFavsUseCase
 import com.nutmeg.mvvmlist.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -42,7 +42,7 @@ class PostsViewModelTest {
     fun test_onViewLoaded_loadsPostsSuccess() =
         runBlocking {
             //given
-            val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameUseCase>()
+            val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameAndFavsUseCase>()
 
             val postWithUserMock = listOf(
                 PostWithUser(
@@ -69,7 +69,7 @@ class PostsViewModelTest {
     fun test_onViewLoaded_loadsPostsFail() =
         runBlocking {
             //given
-            val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameUseCase>()
+            val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameAndFavsUseCase>()
 
             val resultMock = Result.failure<List<PostWithUser>>(Throwable())
             whenever(useCasesMock.getAllPostsWithNameUseCase).thenReturn(

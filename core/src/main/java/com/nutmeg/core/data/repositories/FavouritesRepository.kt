@@ -5,15 +5,15 @@ import com.nutmeg.core.domain.repositories.FavouritesRepository
 
 class FavouritesRepository(private val favouritesDataSource: FavouritesDataSource) :
     FavouritesRepository {
-    override suspend fun isFavourite(postId: String): Boolean {
+    override suspend fun isFavourite(postId: Int): Boolean {
         return favouritesDataSource.isFavourite(postId)
     }
 
-    override suspend fun storeFavourite(postId: String) {
+    override suspend fun storeFavourite(postId: Int) {
         return favouritesDataSource.storeFavourite(postId)
     }
 
-    override suspend fun deleteFavourite(postId: String) {
+    override suspend fun deleteFavourite(postId: Int) {
         return favouritesDataSource.deleteFavourite(postId)
     }
 

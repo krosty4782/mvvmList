@@ -24,7 +24,7 @@ class GetPostsWithNameUseCaseTest {
     private lateinit var usersRepositoryMock: UsersRepository
 
     @InjectMocks
-    private lateinit var sut: GetPostsWithNameUseCase
+    private lateinit var sut: GetPostsWithNameAndFavsUseCase
 
     @Test
     fun test_buildUseCase_success() = runBlocking {
