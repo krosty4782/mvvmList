@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.nutmeg.mvvmlist">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,18 +17,15 @@
         android:theme="@style/Theme.Mvvmlist"
         tools:targetApi="31">
 
-        <activity android:name=".posts.PostsActivity"
+        <activity
+            android:name=".posts.PostsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".users.UserActivity"
-            android:exported="true">
-        </activity>
     </application>
 
 </manifest>
