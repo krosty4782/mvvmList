@@ -12,7 +12,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
-class UsersDataSourceImpTest {
+class UsersDataSourceTest {
 
 
     @Test
@@ -21,7 +21,7 @@ class UsersDataSourceImpTest {
         runTest {
             //given
             val mockUsersService = mock<UsersService>()
-            val sut = UsersDataSourceImp(mockUsersService)
+            val sut = UsersDataSource(mockUsersService)
             val mockList = listOf(User(12, "name", "username", "email",
                 Address("street", "suite", "city", "zipcode"),"phone1","website1"
             ))

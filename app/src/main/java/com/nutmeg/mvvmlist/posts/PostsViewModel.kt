@@ -27,7 +27,7 @@ class PostsViewModel @Inject constructor(
 
     fun onViewLoaded() {
         viewModelScope.launch {
-            useCases.getAllPostsWithNameAndFavUseCase.buildUseCase(null).let {
+            useCases.getAllPostsWithNameAndFavUseCase.buildUseCase().let {
                 if (it.isSuccess) {
                     _posts.postValue(postsModelConverter.convert(it.getOrNull()))
                 } else {

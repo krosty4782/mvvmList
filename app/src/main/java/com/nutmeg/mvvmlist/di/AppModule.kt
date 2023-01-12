@@ -1,7 +1,5 @@
 package com.nutmeg.mvvmlist.di
 
-import com.nutmeg.core.data.datasource.PostDataSource
-import com.nutmeg.core.data.datasource.UsersDataSource
 import com.nutmeg.core.data.repositories.FavouritesRepository
 import com.nutmeg.core.data.repositories.UsersRepository
 import com.nutmeg.core.data.services.FavouritesService
@@ -15,9 +13,7 @@ import com.nutmeg.core.domain.use_cases.StoreFavouriteUseCase
 import com.nutmeg.mvvmlist.posts.FavouritesUseCases
 import com.nutmeg.mvvmlist.posts.PostUseCases
 import com.nutmeg.mvvmlist.posts.PostsModelConverter
-import com.nutmeg.mvvmlist.repositories.FavouritesDataSourceImp
-import com.nutmeg.mvvmlist.repositories.PostDataSourceImp
-import com.nutmeg.mvvmlist.repositories.UsersDataSourceImp
+import com.nutmeg.mvvmlist.repositories.FavouritesDataSource
 import com.nutmeg.mvvmlist.util.Constant
 import dagger.Module
 import dagger.Provides
@@ -64,20 +60,21 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun getUsersDataSource(usersService: UsersService): UsersDataSource =
-        UsersDataSourceImp(usersService)
+    fun getUsersDataSource(usersService: UsersService): com.nutmeg.core.data.datasource.UsersDataSource =
+        com.nutmeg.mvvmlist.repositories.UsersDataSource(usersService)
 
     @Provides
     @Singleton
-    fun getPostDataSource(postService: PostService): PostDataSource = PostDataSourceImp(postService)
+    fun getPostDataSource(postService: PostService): com.nutmeg.core.data.datasource.PostDataSource =
+        com.nutmeg.mvvmlist.repositories.PostDataSource(postService)
 
     @Provides
     @Singleton
-    fun getUsersRepository(usersDataSource: UsersDataSource) = UsersRepository(usersDataSource)
+    fun getUsersRepository(usersDataSource: com.nutmeg.core.data.datasource.UsersDataSource) = UsersRepository(usersDataSource)
 
     @Provides
     @Singleton
-    fun getPostsRepository(dataSource: PostDataSource) =
+    fun getPostsRepository(dataSource: com.nutmeg.core.data.datasource.PostDataSource) =
         com.nutmeg.core.data.repositories.PostsRepository(dataSource)
 
     @Provides
@@ -101,11 +98,11 @@ object AppModule {
     @Provides
     @Singleton
     fun getFavouritesDataSource(favouritesService: FavouritesService) =
-        FavouritesDataSourceImp(favouritesService)
+        FavouritesDataSource(favouritesService)
 
     @Provides
     @Singleton
-    fun getFavouritesRepository(favouritesDataSource: FavouritesDataSourceImp) =
+    fun getFavouritesRepository(favouritesDataSource: FavouritesDataSource) =
         FavouritesRepository(favouritesDataSource)
 
     @Provides
