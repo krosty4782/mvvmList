@@ -1,6 +1,7 @@
 package com.nutmeg.mvvmlist.repositories
 
 import com.nutmeg.core.data.services.UsersService
+import com.nutmeg.core.domain.models.Address
 import com.nutmeg.core.domain.models.User
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -11,7 +12,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
 @RunWith(MockitoJUnitRunner::class)
-class UsersDataSourceImpTest {
+class UsersDataSourceTest {
 
 
     @Test
@@ -20,8 +21,10 @@ class UsersDataSourceImpTest {
         runTest {
             //given
             val mockUsersService = mock<UsersService>()
-            val sut = UsersDataSourceImp(mockUsersService)
-            val mockList = listOf(User(12, "name", "username", "email"))
+            val sut = UsersDataSource(mockUsersService)
+            val mockList = listOf(User(12, "name", "username", "email",
+                Address("street", "suite", "city", "zipcode"),"phone1","website1"
+            ))
             whenever(mockUsersService.getUsers()).thenReturn(mockList)
 
             //when

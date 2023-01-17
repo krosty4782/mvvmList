@@ -10,9 +10,10 @@ interface BaseUseCase<out Type, in Params> where Type : Any {
     val callbackDispatcher: CoroutineContext
         get() = Dispatchers.Main
 
-    suspend fun buildUseCase(params: Params): Result<Type>
+    suspend fun buildUseCase(params: Params? = null): Result<Type>
 
-    suspend operator fun invoke(params: Params, onSuccess: (Type) -> Unit, onFailure: (Throwable) -> Unit) {
+
+    suspend operator fun invoke(params: Params?, onSuccess: (Type) -> Unit, onFailure: (Throwable) -> Unit) {
         val result = buildUseCase(params)
 
         coroutineScope {
