@@ -1,8 +1,9 @@
 package com.nutmeg.mvvmlist.posts
 
 import com.nutmeg.core.domain.models.PostWithUser
+import javax.inject.Inject
 
-class PostsModelConverter {
+class PostsModelConverter @Inject constructor(){
 
     fun convert(posts: List<PostWithUser>?): List<PostsModel>? {
         val postsModel = posts?.map {

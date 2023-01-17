@@ -1,23 +1,23 @@
 package com.nutmeg.mvvmlist.di
 
-import com.nutmeg.core.data.repositories.FavouritesRepository
-import com.nutmeg.core.data.repositories.UsersRepository
+
+import com.nutmeg.core.data.datasource.FavouritesDataSource
 import com.nutmeg.core.data.services.FavouritesService
 import com.nutmeg.core.data.services.FavouritesServiceImp
 import com.nutmeg.core.data.services.PostService
 import com.nutmeg.core.data.services.UsersService
+import com.nutmeg.core.domain.repositories.FavouritesRepository
+import com.nutmeg.core.domain.repositories.PostsRepository
+import com.nutmeg.core.domain.repositories.UsersRepository
 import com.nutmeg.core.domain.use_cases.DeleteFavouriteUseCase
 import com.nutmeg.core.domain.use_cases.GetPostsWithNameAndFavsUseCase
 import com.nutmeg.core.domain.use_cases.IsFavouriteUseCase
 import com.nutmeg.core.domain.use_cases.StoreFavouriteUseCase
-import com.nutmeg.mvvmlist.posts.FavouritesUseCases
-import com.nutmeg.mvvmlist.posts.PostUseCases
-import com.nutmeg.mvvmlist.posts.PostsModelConverter
-import com.nutmeg.mvvmlist.repositories.FavouritesDataSource
 import com.nutmeg.mvvmlist.util.Constant
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,105 +27,58 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object PostModule {
 
     @Provides
-    @Singleton
-    fun getHttpLoggingInterceptor() =
-        HttpLoggingInterceptor().apply { this.level = HttpLoggingInterceptor.Level.BODY }
-
-    @Provides
-    @Singleton
-    fun getOkHttpClient(interceptor: HttpLoggingInterceptor) =
-        OkHttpClient().newBuilder().addInterceptor(interceptor).build()
-
-    @Provides
-    @Singleton
-    fun getRetrofit(client: OkHttpClient) =
-        Retrofit.Builder().baseUrl(Constant.BASE_URL).client(client).addConverterFactory(
-            GsonConverterFactory.create()
-        ).build()
-
-    @Provides
-    @Singleton
     fun getUserService(retrofit: Retrofit) = retrofit.create(UsersService::class.java)
 
     @Provides
-    @Singleton
     fun getPostService(retrofit: Retrofit) = retrofit.create(PostService::class.java)
 
     @Provides
-    @Singleton
+    @Singleton //In memory caching while the app runs
     fun getFavouritesService(): FavouritesService = FavouritesServiceImp()
 
     @Provides
-    @Singleton
     fun getUsersDataSource(usersService: UsersService): com.nutmeg.core.data.datasource.UsersDataSource =
         com.nutmeg.mvvmlist.repositories.UsersDataSource(usersService)
 
     @Provides
-    @Singleton
     fun getPostDataSource(postService: PostService): com.nutmeg.core.data.datasource.PostDataSource =
         com.nutmeg.mvvmlist.repositories.PostDataSource(postService)
 
     @Provides
-    @Singleton
-    fun getUsersRepository(usersDataSource: com.nutmeg.core.data.datasource.UsersDataSource) = UsersRepository(usersDataSource)
+    fun getUsersRepository(usersDataSource: com.nutmeg.core.data.datasource.UsersDataSource): UsersRepository =
+        com.nutmeg.core.data.repositories.UsersRepository(usersDataSource)
 
     @Provides
-    @Singleton
-    fun getPostsRepository(dataSource: com.nutmeg.core.data.datasource.PostDataSource) =
+    fun getPostsRepository(dataSource: com.nutmeg.core.data.datasource.PostDataSource): PostsRepository =
         com.nutmeg.core.data.repositories.PostsRepository(dataSource)
 
     @Provides
-    @Singleton
-    fun getPostsModelConverter() = PostsModelConverter()
-
-    @Provides
-    @Singleton
     fun getPostsWithNameUseCase(
-        postRepository: com.nutmeg.core.data.repositories.PostsRepository,
+        postRepository: PostsRepository,
         userRepository: UsersRepository,
         favouritesRepository: FavouritesRepository
     ) = GetPostsWithNameAndFavsUseCase(postRepository, userRepository, favouritesRepository)
 
+    @Provides
+    fun getFavouritesDataSource(favouritesService: FavouritesService) : FavouritesDataSource=
+        com.nutmeg.mvvmlist.repositories.FavouritesDataSource(favouritesService)
 
     @Provides
-    @Singleton
-    fun getPostUseCases(getPostsWithNameUseCase: GetPostsWithNameAndFavsUseCase) =
-        PostUseCases(getPostsWithNameUseCase)
+    fun getFavouritesRepository(favouritesDataSource: FavouritesDataSource): FavouritesRepository =
+        com.nutmeg.core.data.repositories.FavouritesRepository(favouritesDataSource)
 
     @Provides
-    @Singleton
-    fun getFavouritesDataSource(favouritesService: FavouritesService) =
-        FavouritesDataSource(favouritesService)
-
-    @Provides
-    @Singleton
-    fun getFavouritesRepository(favouritesDataSource: FavouritesDataSource) =
-        FavouritesRepository(favouritesDataSource)
-
-    @Provides
-    @Singleton
     fun getIsFavouriteUseCase(favouritesRepository: FavouritesRepository) =
         IsFavouriteUseCase(favouritesRepository)
 
     @Provides
-    @Singleton
     fun getStoreFavouriteUseCase(favouritesRepository: FavouritesRepository) =
         StoreFavouriteUseCase(favouritesRepository)
 
     @Provides
-    @Singleton
     fun getDeleteFavouriteUseCase(favouritesRepository: FavouritesRepository) =
         DeleteFavouriteUseCase(favouritesRepository)
-
-    @Provides
-    @Singleton
-    fun getFavouritesUseCases(
-        isFavouriteUseCase: IsFavouriteUseCase,
-        storeFavouriteUseCase: StoreFavouriteUseCase,
-        deleteFavouriteUseCase: DeleteFavouriteUseCase
-    ) =
-        FavouritesUseCases(isFavouriteUseCase, storeFavouriteUseCase, deleteFavouriteUseCase)
 }

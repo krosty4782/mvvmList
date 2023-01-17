@@ -1,7 +1,8 @@
 package com.nutmeg.core.domain.use_cases
 
-import com.nutmeg.core.data.repositories.UsersRepository
+
 import com.nutmeg.core.domain.models.User
+import com.nutmeg.core.domain.repositories.UsersRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

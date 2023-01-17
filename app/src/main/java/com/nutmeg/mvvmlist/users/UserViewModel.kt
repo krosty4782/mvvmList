@@ -20,7 +20,7 @@ class UserViewModel @Inject constructor(
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
     private val _albums = MutableLiveData<List<Album>>()
-    val album: LiveData<List<Album>> = _albums
+    val albums: LiveData<List<Album>> = _albums
 
     fun onViewLoaded(userId: Int) {
         viewModelScope.launch {

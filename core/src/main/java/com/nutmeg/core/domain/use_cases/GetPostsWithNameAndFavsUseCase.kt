@@ -1,7 +1,7 @@
 package com.nutmeg.core.domain.use_cases
 
-import com.nutmeg.core.data.repositories.FavouritesRepository
 import com.nutmeg.core.domain.models.PostWithUser
+import com.nutmeg.core.domain.repositories.FavouritesRepository
 import com.nutmeg.core.domain.repositories.PostsRepository
 import com.nutmeg.core.domain.repositories.UsersRepository
 import kotlinx.coroutines.Dispatchers
