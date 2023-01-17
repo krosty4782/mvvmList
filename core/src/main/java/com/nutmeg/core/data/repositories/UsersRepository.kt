@@ -5,11 +5,8 @@ import com.nutmeg.core.domain.models.User
 import com.nutmeg.core.domain.repositories.UsersRepository
 
 class UsersRepository(private val usersDataSource: UsersDataSource) : UsersRepository {
-    override suspend fun getUsers(): List<User> {
-        return usersDataSource.getUsers()
-    }
+    override suspend fun getUsers() = usersDataSource.getUsers()
 
-    override suspend fun getUser(userId: Int): User {
-        return usersDataSource.getUser(userId)
-    }
+    override suspend fun getUser(userId: Int) = usersDataSource.getUser(userId)
+
 }

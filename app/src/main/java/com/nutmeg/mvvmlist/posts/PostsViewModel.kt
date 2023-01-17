@@ -1,6 +1,7 @@
 package com.nutmeg.mvvmlist.posts
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -19,12 +20,14 @@ class PostsViewModel @Inject constructor(
 
     private val _navigation = MutableLiveData<NavigationDestination>()
     val navigation: LiveData<NavigationDestination> = _navigation
-    private val _posts = MutableLiveData<MutableList<PostsModel>>()
-    val posts: LiveData<MutableList<PostsModel>> = _posts
+
+    @VisibleForTesting
+    val _posts = MutableLiveData<List<PostsModel>>()
+    val posts: LiveData<List<PostsModel>> = _posts
 
     fun onViewLoaded() {
         viewModelScope.launch {
-            useCases.getAllPostsWithNameAndFavUseCase.buildUseCase(null).let {
+            useCases.getAllPostsWithNameAndFavUseCase.buildUseCase().let {
                 if (it.isSuccess) {
                     _posts.postValue(postsModelConverter.convert(it.getOrNull()))
                 } else {
@@ -38,6 +41,10 @@ class PostsViewModel @Inject constructor(
 
     fun onUsernameClicked(userId: Int) {
         _navigation.postValue(NavigationDestination.User(userId))
+    }
+
+    fun doneNavigating() {
+        _navigation.postValue(null)
     }
 
     fun onFavouritesClicked(postsModel: PostsModel) {
@@ -60,9 +67,5 @@ class PostsViewModel @Inject constructor(
             index?.let { modifiedList.set(it, newPost) }
             _posts.postValue(modifiedList)
         }
-    }
-
-    fun doneNavigating() {
-        _navigation.postValue(null)
     }
 }
