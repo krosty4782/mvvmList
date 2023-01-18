@@ -1,8 +1,8 @@
 package com.nutmeg.mvvmlist.repositories
 
-import com.nutmeg.core.data.datasource.PostDataSource
-import com.nutmeg.core.data.services.PostService
-import com.nutmeg.core.domain.models.Post
+import com.nutmeg.data.datasource.PostDataSource
+import com.nutmeg.data.services.PostService
+import com.nutmeg.domain.models.Post
 
 class PostDataSource(private val potService: PostService) :
     PostDataSource {

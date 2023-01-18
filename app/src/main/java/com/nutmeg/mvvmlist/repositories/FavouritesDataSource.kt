@@ -1,7 +1,7 @@
 package com.nutmeg.mvvmlist.repositories
 
-import com.nutmeg.core.data.datasource.FavouritesDataSource
-import com.nutmeg.core.data.services.FavouritesService
+import com.nutmeg.data.datasource.FavouritesDataSource
+import com.nutmeg.data.services.FavouritesService
 
 class FavouritesDataSource(private val favouritesService: FavouritesService):
     FavouritesDataSource {

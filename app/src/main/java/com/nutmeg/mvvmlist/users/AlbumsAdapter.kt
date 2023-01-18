@@ -3,7 +3,7 @@ package com.nutmeg.mvvmlist.users
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.nutmeg.core.domain.models.Album
+import com.nutmeg.domain.models.Album
 import com.nutmeg.mvvmlist.databinding.ViewUserAlbumBinding
 
 class AlbumsAdapter() : RecyclerView.Adapter<AlbumViewHolder>() {

@@ -1,9 +1,9 @@
 package com.nutmeg.mvvmlist.posts
 
-import com.nutmeg.core.domain.models.Address
-import com.nutmeg.core.domain.models.Post
-import com.nutmeg.core.domain.models.PostWithUser
-import com.nutmeg.core.domain.models.User
+import com.nutmeg.domain.models.Address
+import com.nutmeg.domain.models.Post
+import com.nutmeg.domain.models.PostWithUser
+import com.nutmeg.domain.models.User
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test

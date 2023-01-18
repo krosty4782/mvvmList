@@ -1,11 +1,11 @@
 package com.nutmeg.mvvmlist.di
 
-import com.nutmeg.core.data.datasource.AlbumsDataSource
-import com.nutmeg.core.data.repositories.AlbumsRepository
-import com.nutmeg.core.data.services.AlbumsService
-import com.nutmeg.core.domain.repositories.UsersRepository
-import com.nutmeg.core.domain.use_cases.GetAlbumsUseCase
-import com.nutmeg.core.domain.use_cases.GetUserUseCase
+import com.nutmeg.data.datasource.AlbumsDataSource
+import com.nutmeg.data.repositories.AlbumsRepository
+import com.nutmeg.data.services.AlbumsService
+import com.nutmeg.domain.repositories.UsersRepository
+import com.nutmeg.domain.use_cases.GetAlbumsUseCase
+import com.nutmeg.domain.use_cases.GetUserUseCase
 import com.nutmeg.mvvmlist.users.UserUseCases
 import dagger.Module
 import dagger.Provides
@@ -15,14 +15,14 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object UserModule {
+private object UserModule {
 
     @Provides
     fun getGetUserUseCase(usersRepository: UsersRepository) =
-        GetUserUseCase(usersRepository)
+        com.nutmeg.domain.use_cases.GetUserUseCase(usersRepository)
 
     @Provides
-    fun getUserUseCases(getUserUseCases: GetUserUseCase) =
+    fun getUserUseCases(getUserUseCases: com.nutmeg.domain.use_cases.GetUserUseCase) =
         UserUseCases(getUserUseCases)
 
     @Provides
@@ -34,11 +34,11 @@ object UserModule {
         com.nutmeg.mvvmlist.repositories.AlbumsDataSource(albumService)
 
     @Provides
-    fun getAlbumRepository(albumsDataSource: AlbumsDataSource): com.nutmeg.core.domain.repositories.AlbumsRepository =
+    fun getAlbumRepository(albumsDataSource: AlbumsDataSource): com.nutmeg.domain.repositories.AlbumsRepository =
         AlbumsRepository(albumsDataSource)
 
 
     @Provides
-    fun getGetAlbumUseCase(getAlbumsRepository: com.nutmeg.core.domain.repositories.AlbumsRepository) =
-        GetAlbumsUseCase(getAlbumsRepository)
+    fun getGetAlbumUseCase(getAlbumsRepository: com.nutmeg.domain.repositories.AlbumsRepository) =
+        com.nutmeg.domain.use_cases.GetAlbumsUseCase(getAlbumsRepository)
 }

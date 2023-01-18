@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.nutmeg.core.domain.models.Album
-import com.nutmeg.core.domain.models.User
+import com.nutmeg.domain.models.Album
+import com.nutmeg.domain.models.User
 import com.nutmeg.mvvmlist.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

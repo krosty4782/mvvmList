@@ -1,6 +1,6 @@
 package com.nutmeg.mvvmlist.posts
 
-import com.nutmeg.core.domain.models.PostWithUser
+import com.nutmeg.domain.models.PostWithUser
 import javax.inject.Inject
 
 class PostsModelConverter @Inject constructor(){

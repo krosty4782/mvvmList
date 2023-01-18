@@ -1,13 +1,13 @@
 package com.nutmeg.mvvmlist.posts
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nutmeg.core.domain.models.Address
-import com.nutmeg.core.domain.models.Post
-import com.nutmeg.core.domain.models.PostWithUser
-import com.nutmeg.core.domain.models.User
-import com.nutmeg.core.domain.use_cases.DeleteFavouriteUseCase
-import com.nutmeg.core.domain.use_cases.GetPostsWithNameAndFavsUseCase
-import com.nutmeg.core.domain.use_cases.StoreFavouriteUseCase
+import com.nutmeg.domain.models.Address
+import com.nutmeg.domain.models.Post
+import com.nutmeg.domain.models.PostWithUser
+import com.nutmeg.domain.models.User
+import com.nutmeg.domain.use_cases.DeleteFavouriteUseCase
+import com.nutmeg.domain.use_cases.GetPostsWithNameAndFavsUseCase
+import com.nutmeg.domain.use_cases.StoreFavouriteUseCase
 import com.nutmeg.mvvmlist.base.NavigationDestination
 import com.nutmeg.mvvmlist.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,10 +35,10 @@ class PostsViewModelTest {
     private lateinit var useCasesMock: PostUseCases
 
     @Mock
-    private lateinit var deleteFavouritesUseCasesMock: DeleteFavouriteUseCase
+    private lateinit var deleteFavouritesUseCasesMock: com.nutmeg.domain.use_cases.DeleteFavouriteUseCase
 
     @Mock
-    private lateinit var storeFavouritesUseCasesMock: StoreFavouriteUseCase
+    private lateinit var storeFavouritesUseCasesMock: com.nutmeg.domain.use_cases.StoreFavouriteUseCase
 
     @Mock
     private lateinit var favouritesUseCasesMock: FavouritesUseCases

@@ -1,7 +1,7 @@
 package com.nutmeg.mvvmlist.repositories
 
-import com.nutmeg.core.data.services.PostService
-import com.nutmeg.core.domain.models.Post
+import com.nutmeg.data.services.PostService
+import com.nutmeg.domain.models.Post
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Test

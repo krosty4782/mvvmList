@@ -1,8 +1,8 @@
 package com.nutmeg.mvvmlist.repositories
 
-import com.nutmeg.core.data.datasource.UsersDataSource
-import com.nutmeg.core.data.services.UsersService
-import com.nutmeg.core.domain.models.User
+import com.nutmeg.data.datasource.UsersDataSource
+import com.nutmeg.data.services.UsersService
+import com.nutmeg.domain.models.User
 
 class UsersDataSource(private val usersService: UsersService) :
     UsersDataSource {

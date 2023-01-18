@@ -1,8 +1,8 @@
 package com.nutmeg.mvvmlist.repositories
 
-import com.nutmeg.core.data.services.UsersService
-import com.nutmeg.core.domain.models.Address
-import com.nutmeg.core.domain.models.User
+import com.nutmeg.data.services.UsersService
+import com.nutmeg.domain.models.Address
+import com.nutmeg.domain.models.User
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
