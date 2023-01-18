@@ -1,18 +1,20 @@
+@file:OptIn(ExperimentalCoroutinesApi::class)
+
 package com.mvvmlist.posts
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.mvvmlist.posts.*
+import com.mvvmlist.base.NavigationDestination
 import com.mvvmlist.domain.models.Address
 import com.mvvmlist.domain.models.Post
 import com.mvvmlist.domain.models.PostWithUser
 import com.mvvmlist.domain.models.User
-import com.mvvmlist.domain.use_cases.GetPostsWithNameAndFavsUseCase
-import com.mvvmlist.base.NavigationDestination
 import com.mvvmlist.domain.use_cases.DeleteFavouriteUseCase
+import com.mvvmlist.domain.use_cases.GetPostsWithNameAndFavsUseCase
 import com.mvvmlist.domain.use_cases.StoreFavouriteUseCase
 import com.mvvmlist.rules.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +54,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_onViewLoaded_loadsPostsSuccess() =
-        runBlocking {
+        runTest {
             //given
             val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameAndFavsUseCase>()
 
@@ -83,7 +85,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_onViewLoaded_loadsPostsFail() =
-        runBlocking {
+        runTest {
             //given
             val getAllPostsWithNameUseCaseMock = mock<GetPostsWithNameAndFavsUseCase>()
 
@@ -103,7 +105,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_onUserNameClicked_navigationDestination() =
-        runBlocking {
+        runTest {
             //given
 
             //when
@@ -115,7 +117,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_doneNavigating_navigationNull() =
-        runBlocking {
+        runTest {
             //given
 
             //when
@@ -127,7 +129,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_onFavouritesClickedAndNotFavourite_favourite() =
-        runBlocking {
+        runTest {
             //given
             val postsModelMock = PostsModel("title", "body", "username", false, 12, 13)
             whenever(favouritesUseCasesMock.storeFavouriteUseCase).thenReturn(
@@ -148,7 +150,7 @@ class PostsViewModelTest {
 
     @Test
     fun test_onFavouritesClickedAndFavourite_deleteFavourite() =
-        runBlocking {
+        runTest {
             //given
             val postsModelMock = PostsModel("title", "body", "username", true, 12, 13)
             whenever(favouritesUseCasesMock.deleteFavouriteUseCase).thenReturn(

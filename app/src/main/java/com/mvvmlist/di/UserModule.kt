@@ -1,6 +1,7 @@
 package com.mvvmlist.di
 
 import com.mvvmlist.data.datasource.AlbumsDataSource
+import com.mvvmlist.data.datasource.AlbumsDataSourceImp
 import com.mvvmlist.data.repositories.AlbumsRepository
 import com.mvvmlist.data.services.AlbumsService
 import com.mvvmlist.domain.repositories.UsersRepository
@@ -26,7 +27,7 @@ private object UserModule {
 
     @Provides
     fun getAlbumDataSource(albumService: AlbumsService): AlbumsDataSource =
-        com.mvvmlist.repositories.AlbumsDataSource(albumService)
+        AlbumsDataSourceImp(albumService)
 
     @Provides
     fun getAlbumRepository(albumsDataSource: AlbumsDataSource): com.mvvmlist.domain.repositories.AlbumsRepository =

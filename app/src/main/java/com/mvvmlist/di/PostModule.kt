@@ -1,11 +1,8 @@
 package com.mvvmlist.di
 
 
-import com.mvvmlist.data.datasource.FavouritesDataSource
-import com.mvvmlist.data.datasource.PostDataSource
-import com.mvvmlist.data.datasource.UsersDataSource
+import com.mvvmlist.data.datasource.*
 import com.mvvmlist.data.services.FavouritesService
-import com.mvvmlist.data.services.FavouritesServiceImp
 import com.mvvmlist.data.services.PostService
 import com.mvvmlist.data.services.UsersService
 import com.mvvmlist.domain.repositories.FavouritesRepository
@@ -19,7 +16,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,11 +23,11 @@ private object PostModule {
 
     @Provides
     fun getUsersDataSource(usersService: UsersService): UsersDataSource =
-        com.mvvmlist.repositories.UsersDataSource(usersService)
+        UsersDataSourceImp(usersService)
 
     @Provides
     fun getPostDataSource(postService: PostService): PostDataSource =
-        com.mvvmlist.repositories.PostDataSource(postService)
+        PostDataSourceImp(postService)
 
     @Provides
     fun getUsersRepository(usersDataSource: UsersDataSource): UsersRepository =
@@ -50,7 +46,7 @@ private object PostModule {
 
     @Provides
     fun getFavouritesDataSource(favouritesService: FavouritesService) : FavouritesDataSource =
-        com.mvvmlist.repositories.FavouritesDataSource(favouritesService)
+        FavouritesDataSourceImp(favouritesService)
 
     @Provides
     fun getFavouritesRepository(favouritesDataSource: FavouritesDataSource): FavouritesRepository =

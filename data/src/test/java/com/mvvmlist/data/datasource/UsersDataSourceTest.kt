@@ -1,6 +1,5 @@
-package com.mvvmlist.repositories
+package com.mvvmlist.data.datasource
 
-import com.mvvmlist.repositories.UsersDataSource
 import com.mvvmlist.data.services.UsersService
 import com.mvvmlist.domain.models.Address
 import com.mvvmlist.domain.models.User
@@ -22,7 +21,7 @@ class UsersDataSourceTest {
         runTest {
             //given
             val mockUsersService = mock<UsersService>()
-            val sut = UsersDataSource(mockUsersService)
+            val sut = UsersDataSourceImp(mockUsersService)
             val mockList = listOf(
                 User(12, "name", "username", "email",
                 Address("street", "suite", "city", "zipcode"),"phone1","website1"

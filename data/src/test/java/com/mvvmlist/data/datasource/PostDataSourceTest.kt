@@ -1,6 +1,6 @@
-package com.mvvmlist.repositories
+package com.mvvmlist.data.datasource
 
-import com.mvvmlist.repositories.PostDataSource
+import com.mvvmlist.data.datasource.PostDataSourceImp
 import com.mvvmlist.data.services.PostService
 import com.mvvmlist.domain.models.Post
 import kotlinx.coroutines.test.runTest
@@ -19,7 +19,7 @@ class PostDataSourceTest {
         runTest {
             //given
             val postServiceMock = mock<PostService>()
-            val sut = PostDataSource(postServiceMock)
+            val sut = PostDataSourceImp(postServiceMock)
             val mockList = listOf(Post(12, 1, "title", "body"))
             whenever(postServiceMock.getPosts()).thenReturn(mockList)
 
