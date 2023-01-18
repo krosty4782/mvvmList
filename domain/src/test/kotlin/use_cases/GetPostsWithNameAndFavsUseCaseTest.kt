@@ -1,14 +1,14 @@
 package use_cases
 
 
-import com.nutmeg.domain.models.Address
-import com.nutmeg.domain.models.Post
-import com.nutmeg.domain.models.PostWithUser
-import com.nutmeg.domain.models.User
-import com.nutmeg.domain.repositories.FavouritesRepository
-import com.nutmeg.domain.repositories.PostsRepository
-import com.nutmeg.domain.repositories.UsersRepository
-import com.nutmeg.domain.use_cases.GetPostsWithNameAndFavsUseCase
+import com.mvvmlist.domain.models.Address
+import com.mvvmlist.domain.models.Post
+import com.mvvmlist.domain.models.PostWithUser
+import com.mvvmlist.domain.models.User
+import com.mvvmlist.domain.repositories.FavouritesRepository
+import com.mvvmlist.domain.repositories.PostsRepository
+import com.mvvmlist.domain.repositories.UsersRepository
+import com.mvvmlist.domain.use_cases.GetPostsWithNameAndFavsUseCase
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Test
